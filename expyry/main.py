@@ -21,7 +21,11 @@ def main():
     args = sys.argv[1:]
 
     if "--version" in args or "-v" in args:
-        print("expyry 0.1.0")
+        from importlib.metadata import version
+        try:
+            print(f"expyry {version('expyry')}")
+        except Exception:
+            print("expyry 0.1.0")
         return
 
     if not args:
