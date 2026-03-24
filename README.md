@@ -1,10 +1,17 @@
 # expyry
+[![PyPI version](https://badge.fury.io/py/expyry.svg)](https://badge.fury.io/py/expyry)
 
 A lightweight CLI tool to track and monitor credential & token expiry dates across your stack.
 
 [![asciicast](https://asciinema.org/a/LI36NGf6J2gpv4dX.svg)](https://asciinema.org/a/LI36NGf6J2gpv4dX)
 
+## Requirements
+
+- Python 3.10+
+- pip
+
 ## Install
+📦 [PyPI](https://pypi.org/project/expyry/)
 ```
 pip install expyry
 ```
@@ -32,10 +39,16 @@ and warns you only when something is expiring soon.
 ```
 expyry notify enable
 ```
-## Contributing
+# Contributing
 
-Contributions welcome. To add a new service, create a file in `services/`
-and wire it into `main.py`. See `services/ssl.py` for a simple example.
+## Adding a new service
+
+1. Create `expyry/services/yourservice.py`
+2. Implement `check_yourservice()` and `add_yourservice()`
+3. Wire it into `main.py` and `add()`
+4. Open a PR
+
+See `services/ssl.py` for a simple example.
 
 ## License
 
