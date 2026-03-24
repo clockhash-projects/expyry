@@ -20,6 +20,10 @@ def main():
 
     args = sys.argv[1:]
 
+    if "--version" in args or "-v" in args:
+        print("expyry 0.1.0")
+        return
+
     if not args:
         print("\nUsage:")
         print("  expyry add                 — add a credential expiry")
@@ -28,6 +32,7 @@ def main():
         print("  expyry notify disable      — disable shell notifications")
         print("  expyry remove <name>       — remove a credential expiry")
         print("  expyry update <name>       — update a credential expiry")
+        print("  expyry --version           — show version information")
         return
 
     command = args[0]
