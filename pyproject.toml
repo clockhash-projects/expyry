@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "expyry"
+version = "0.1.0"
+description = "A lightweight CLI tool to track and monitor credential & token expiry dates across your stack."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "pyyaml",
+]
+
+[project.scripts]
+expyry = "expyry.main:main"

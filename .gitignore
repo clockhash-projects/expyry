@@ -1,0 +1,28 @@
+# virtual environment
+credwatch-env/
+expyry-env/
+venv/
+env/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# expyry config — never commit user credentials
+.expyry/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+#Build artifacts
+*.egg-info/
+
+dist/
+.expyry/
