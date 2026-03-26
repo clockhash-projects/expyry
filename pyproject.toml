@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "expyry"
-version = "0.1.0"
+version = "0.2.0"
 description = "A lightweight CLI tool to track and monitor credential & token expiry dates across your stack."
 readme = "README.md"
 license = { file = "LICENSE" }

@@ -8,6 +8,7 @@ from expyry.services.custom import add_custom
 from expyry.check import check
 from expyry.notify import enable_shell_notification, disable_shell_notification
 from expyry.services.github import add_github, check_github_pat
+from expyry.services.gitlab import add_gitlab
 from expyry.utils import parse_date
 
 def handle_sigint(sig, frame):
@@ -41,11 +42,12 @@ def main():
                 add_github()
             elif service == "ssl":
                 add_ssl()
+            if service == "gitlab":
+                add_gitlab()
             elif service == "custom":
                 add_custom()
             else:
                 print(f"\n❌  Unknown service '{service}'.")
-                print("    Use: github, ssl or custom\n")
 
     elif command == "list":
         quiet = "--quiet" in args
@@ -86,6 +88,7 @@ def add():
     print("\n➕  What would you like to track?\n")
     print("  github    — GitHub PAT")
     print("  ssl       — SSL Certificate")
+    print("  gitlab    — GitLab PAT")
     print("  custom    — Custom credential\n")
 
     choice = input("Type your choice: ").strip().lower()
@@ -94,10 +97,12 @@ def add():
         add_github()
     elif choice == "ssl":
         add_ssl()
+    elif choice == "gitlab":
+        add_gitlab()
     elif choice == "custom":
         add_custom()
     else:
-        print(f"\n❌  '{choice}' not recognised. Type github, ssl or custom.\n")
+        print(f"\n❌  '{choice}' not recognised. Enter a valid choice.\n")
         add()
 
 def update(service_name: str):
@@ -132,6 +137,23 @@ def update(service_name: str):
         token = getpass("Paste updated GitHub PAT (or press enter for manual date): ").strip()
         if token:
             result = check_github_pat(token)
+            if not result["success"]:
+                print(f"\n❌  {result['error']}\n")
+                return
+            match["expires"] = result["expires"]
+            print(f"✅  Updated — expires {result['expires']}")
+        else:
+            date_input = input("New expiry date: ").strip()
+            expires, error = parse_date(date_input)
+            if not expires:
+                print(f"\n❌  {error}\n")
+                return
+            match["expires"] = expires
+            print(f"✅  Updated — expires {expires}")
+    elif match["type"] == "gitlab":
+        token = getpass("Paste updated GitLab PAT (or press enter for manual date): ").strip()
+        if token:
+            result = check_gitlab_pat(token)
             if not result["success"]:
                 print(f"\n❌  {result['error']}\n")
                 return
@@ -190,8 +212,6 @@ def remove(service_name: str):
     config["services"] = [s for s in services if s["name"]!=service_name]
     save_config(config)
     print(f"\n✅  '{service_name}' removed.\n")
-
-
 
 if __name__ == "__main__":
     main()

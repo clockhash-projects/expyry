@@ -30,6 +30,7 @@ expyry update <name>    — update a credential
 |---|---|
 | GitHub PAT | API response header |
 | SSL Certificate | Direct TLS connection |
+| GitLab PAT | API response header |
 | Custom | Manual date entry |
 
 ## Shell Notifications
