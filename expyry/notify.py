@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from expyry.config import BASHRC_COMMENT, BASHRC_LINE
+from expyry.config import BASHRC_COMMENT, BASHRC_LINE, BASHRC_PATH_LINE
 
 def detect_shell_profile() -> str | None:
     """
@@ -50,7 +50,7 @@ def enable_notification() -> dict:
 
     try:
         with open(profile_path, "a") as f:
-            f.write(f"\n{BASHRC_COMMENT}\n{BASHRC_LINE}\n")
+            f.write(f"\n{BASHRC_COMMENT}\n{BASHRC_PATH_LINE}\n{BASHRC_LINE}\n")
         return {
             "success": True,
             "already_exists": False,
@@ -80,6 +80,7 @@ def disable_notification() -> dict:
         updated_lines = [
             line for line in lines
             if BASHRC_COMMENT not in line
+            and BASHRC_PATH_LINE not in line
             and BASHRC_LINE not in line
         ]
 

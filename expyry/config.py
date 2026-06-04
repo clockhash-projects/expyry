@@ -4,6 +4,7 @@ import yaml
 CONFIG_PATH = Path.home() / ".expyry" / "config.yaml"
 BASHRC_COMMENT = "# Expyry — credential expiry checker"
 BASHRC_LINE = "expyry list --quiet"
+BASHRC_PATH_LINE = 'export PATH="$HOME/.local/bin:$PATH"'
 
 def load_config():
     if not CONFIG_PATH.exists():
